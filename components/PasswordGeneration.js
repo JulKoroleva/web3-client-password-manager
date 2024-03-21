@@ -35,8 +35,6 @@ import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-import checkMark from "../assets/btn/check.png";
-import cross from "../assets/btn/cross-mark.png";
 import TranslationContext from "../translation/TranslationContext";
 import Svg, { Path, G } from "react-native-svg";
 
