@@ -263,7 +263,7 @@ export default function App() {
             setDecryptionSuccess(true);
             setModalVisible(false);
 
-            await getDataFromBlockchain();
+            await getDataFromBlockchain(key);
             const result = await isUserOwnerSmartContract();
             await getBalance();
             store.dispatch({
@@ -335,7 +335,7 @@ export default function App() {
 
             try {
               await connectToNode();
-              await getDataFromBlockchain();
+              await getDataFromBlockchain(key);
             } catch (error) {
               await AsyncStorage.removeItem(newFileName);
 
@@ -386,7 +386,7 @@ export default function App() {
     }
   };
 
-  const getDataFromBlockchain = async () => {
+  const getDataFromBlockchain = async (key) => {
     const data = [
       {
         category: "Social Media",
@@ -418,7 +418,6 @@ export default function App() {
       },
     ];
 
-    const key = masterPassword || store.getState().items.masterPassword;
     let structuredData_;
     try {
       structuredData_ = await getData();
@@ -522,7 +521,7 @@ export default function App() {
               },
             });
             await connectToNode();
-            await getDataFromBlockchain();
+            await getDataFromBlockchain(key);
             const result = await isUserOwnerSmartContract();
             store.dispatch({
               type: "SET_ADMIN_STATUS",

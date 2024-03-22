@@ -16,7 +16,7 @@
       ]
     ],
 
-    "name": "key_k",
+    "name": "Web3Warden",
     "slug": "key_k",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -56,7 +56,7 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.koroleva57.key_k"
+      "package": "com.koroleva57.web3warden"
     },
     "web": {
       "output": "server",
