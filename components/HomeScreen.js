@@ -198,7 +198,10 @@ const HomeScreen = ({ onLoading, theme, language }) => {
           multiple: false,
         });
 
-        if (result.type === "success" && result.name.endsWith(".csv")  || result.canceled === false && result.assets[0].name.endsWith(".csv")) {
+        if (
+          (result.type === "success" && result.name.endsWith(".csv")) ||
+          (result.canceled === false && result.assets[0].name.endsWith(".csv"))
+        ) {
           const tempUri = ExpoFileSystem.cacheDirectory + "temp_csv";
 
           await ExpoFileSystem.copyAsync({
@@ -674,7 +677,6 @@ const HomeScreen = ({ onLoading, theme, language }) => {
                         flexDirection: "row",
                         marginLeft: "auto",
                         alignItems: "center",
-                        width: 70,
                       }}
                     >
                       {menuPanels[subItem.id] && (
@@ -683,7 +685,6 @@ const HomeScreen = ({ onLoading, theme, language }) => {
                             flexDirection: "row",
                             marginLeft: "auto",
                             alignItems: "center",
-                            width: 70,
                             backgroundColor: theme.bg.backgroundColor,
                           }}
                         >
@@ -693,7 +694,7 @@ const HomeScreen = ({ onLoading, theme, language }) => {
                             }}
                             style={{
                               marginLeft: "auto",
-                              marginRight: 40,
+                              marginRight: 20,
                               paddingHorizontal: 5,
                               backgroundColor: theme.bg.backgroundColor,
                             }}
@@ -717,7 +718,7 @@ const HomeScreen = ({ onLoading, theme, language }) => {
                             onPress={() => {
                               toggleDeleteDataModalVisible(subItem);
                             }}
-                            style={{ marginLeft: "auto", marginRight: 40 }}
+                            style={{ marginLeft: "auto", marginRight: 20 }}
                           >
                             <Text>
                               <Svg
@@ -1151,38 +1152,45 @@ const HomeScreen = ({ onLoading, theme, language }) => {
               },
             ]}
           >
-            {data.some((category) => category.items.length > 0) ? (
-              <FlatList
-                data={data}
-                keyExtractor={(item, index) => `${index}`}
-                renderItem={renderItem}
-                style={{ paddingTop: 10 }}
-                overScrollMode="never"
-              />
-            ) : (
-              <View
-                style={{
-                  marginTop: 300,
-                  justifyContent: "center",
-                  alignContent: "center",
-                }}
-              >
-                <DocumentPickerBotton
-                  pickDocument={pickDocument}
-                  showFAQ={handleShowFAQ}
-                ></DocumentPickerBotton>
-              </View>
-            )}
+            <View
+              style={[
+                styles.container,
+                { maxWidth: 800, backgroundColor: theme.bg.backgroundColor },
+              ]}
+            >
+              {data.some((category) => category.items.length > 0) ? (
+                <FlatList
+                  data={data}
+                  keyExtractor={(item, index) => `${index}`}
+                  renderItem={renderItem}
+                  style={{ paddingTop: 10 }}
+                  overScrollMode="never"
+                />
+              ) : (
+                <View
+                  style={{
+                    marginTop: 300,
+                    justifyContent: "center",
+                    alignContent: "center",
+                  }}
+                >
+                  <DocumentPickerBotton
+                    pickDocument={pickDocument}
+                    showFAQ={handleShowFAQ}
+                  ></DocumentPickerBotton>
+                </View>
+              )}
 
-            <MenuBotton
-              expanded={expanded}
-              openModal={openModal}
-              pickDocument={pickDocument}
-              saveDataToBlockchain={saveDataToBlockchain}
-              handlePress={handlePress}
-              showFAQ={handleShowFAQ}
-              theme={theme}
-            ></MenuBotton>
+              <MenuBotton
+                expanded={expanded}
+                openModal={openModal}
+                pickDocument={pickDocument}
+                saveDataToBlockchain={saveDataToBlockchain}
+                handlePress={handlePress}
+                showFAQ={handleShowFAQ}
+                theme={theme}
+              ></MenuBotton>
+            </View>
           </View>
         </TouchableWithoutFeedback>
       )}
@@ -1218,32 +1226,37 @@ const HomeScreen = ({ onLoading, theme, language }) => {
         visible={addModalVisible}
         onRequestClose={closeModal}
       >
-        <View style={styles.modalContainer}>
-          <View
-            style={[
-              styles.modalHeader,
-              {
-                backgroundColor: theme.bg.darkColor,
-                borderColor: theme.borderColor,
-              },
-            ]}
-          >
-            <TouchableOpacity onPress={closeModal} style={styles.closeBtn}>
-              <Svg
-                width="40"
-                height="16"
-                viewBox="0 0 10 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ marginTop: 15 }}
-              >
-                <Path
-                  d="M7.23047 6.25L11.5898 10.6094C11.707 10.7266 11.707 10.8555 11.5898 10.9961L10.7812 11.8047C10.6406 11.9219 10.5117 11.9219 10.3945 11.8047L9.65625 11.0312L6.03516 7.44531L1.67578 11.8047C1.55859 11.9219 1.42969 11.9219 1.28906 11.8047L0.480469 10.9961C0.363281 10.8555 0.363281 10.7266 0.480469 10.6094L4.83984 6.25L0.480469 1.89062C0.363281 1.77344 0.363281 1.64453 0.480469 1.50391L1.28906 0.695312C1.42969 0.578125 1.55859 0.578125 1.67578 0.695312L6.03516 5.05469L10.3945 0.695312C10.5117 0.578125 10.6406 0.578125 10.7812 0.695312L11.5898 1.50391C11.707 1.64453 11.707 1.77344 11.5898 1.89062L10.8164 2.62891L7.23047 6.25Z"
-                  fill="#4E5969"
-                />
-              </Svg>
-            </TouchableOpacity>
-          </View>
+        <View
+          style={[
+            styles.modalHeader,
+            {
+              backgroundColor: theme.bg.darkColor,
+              borderColor: theme.borderColor,
+            },
+          ]}
+        >
+          <TouchableOpacity onPress={closeModal} style={styles.closeBtn}>
+            <Svg
+              width="40"
+              height="16"
+              viewBox="0 0 10 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ marginTop: 15 }}
+            >
+              <Path
+                d="M7.23047 6.25L11.5898 10.6094C11.707 10.7266 11.707 10.8555 11.5898 10.9961L10.7812 11.8047C10.6406 11.9219 10.5117 11.9219 10.3945 11.8047L9.65625 11.0312L6.03516 7.44531L1.67578 11.8047C1.55859 11.9219 1.42969 11.9219 1.28906 11.8047L0.480469 10.9961C0.363281 10.8555 0.363281 10.7266 0.480469 10.6094L4.83984 6.25L0.480469 1.89062C0.363281 1.77344 0.363281 1.64453 0.480469 1.50391L1.28906 0.695312C1.42969 0.578125 1.55859 0.578125 1.67578 0.695312L6.03516 5.05469L10.3945 0.695312C10.5117 0.578125 10.6406 0.578125 10.7812 0.695312L11.5898 1.50391C11.707 1.64453 11.707 1.77344 11.5898 1.89062L10.8164 2.62891L7.23047 6.25Z"
+                fill="#4E5969"
+              />
+            </Svg>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={[
+            styles.modalContainer,
+            { backgroundColor: theme.bg.backgroundColor },
+          ]}
+        >
           <AddForm
             onClose={closeModal}
             theme={theme}
@@ -1440,7 +1453,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     width: screenWidth,
-    maxWidth: 800,
     alignSelf: "center",
   },
   itemCategory: {
@@ -1554,14 +1566,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
   modalHeader: {
     borderBottomWidth: 1,
     borderStyle: "solid",
     padding: 10,
     width: screenWidth,
-    maxWidth: 800,
   },
   addFormContainer: {
     paddingHorizontal: 20,

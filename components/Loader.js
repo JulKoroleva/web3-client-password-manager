@@ -40,13 +40,13 @@ const SuccessIcon = () => {
         toValue: 0,
         duration: 900,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
       Animated.timing(polylineDashOffset, {
         toValue: 0,
         duration: 800,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
     ]).start();
   }, []);
@@ -95,27 +95,27 @@ const ErrorIcon = ({ message }) => {
         toValue: 0,
         duration: 900,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
       }),
       Animated.timing(line1DashOffset, {
         toValue: 0,
         duration: 900,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
         delay: 350,
       }),
       Animated.timing(line2DashOffset, {
         toValue: 0,
         duration: 900,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
         delay: 350,
       }),
       Animated.timing(textOpacity, {
         toValue: 1,
         duration: 500,
         easing: Easing.ease,
-        useNativeDriver: true,
+        useNativeDriver: false,
         delay: 300,
       }),
     ]).start();
@@ -210,9 +210,18 @@ const ErrorIcon = ({ message }) => {
             bottom: -50,
             width: "60%",
             marginTop: 20,
+            alignSelf: "center",
           }}
         >
-          <Text style={{ color: "black", opacity: 0.5, textAlign: "center" }}>
+          <Text
+            style={{
+              color: "black",
+              opacity: 0.5,
+              textAlign: "center",
+              alignSelf: "center",
+              width: 310,
+            }}
+          >
             {colorizeNumbers(errorMessage)}
           </Text>
         </Animated.View>
@@ -237,7 +246,7 @@ const ArcLoader = ({ theme }) => {
         toValue: 1,
         duration: 1000,
         easing: Easing.linear,
-        useNativeDriver: true,
+        useNativeDriver: false,
       })
     ).start();
   }, [spinValue]);

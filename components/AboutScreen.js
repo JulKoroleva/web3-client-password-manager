@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     width: screenWidth,
-    maxWidth: 800,
     alignSelf: "center",
   },
 });

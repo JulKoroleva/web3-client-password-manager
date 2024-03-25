@@ -59,103 +59,107 @@ const Settings = ({
     <View
       style={[styles.container, { backgroundColor: theme.bg.backgroundColor }]}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          backgroundColor: theme.bg.darkColor,
-          borderColor: theme.borderColor,
-          paddingHorizontal: 10,
-          paddingVertical: 2,
-          borderRadius: 5,
-        }}
-      >
-        <Svg
-          style={{ zIndex: 200 }}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="black"
-          class="bi bi-moon"
-          width="40px"
-          height="40px"
-          viewBox="0 0 24 24"
-        >
-          <Path
-            d="M22 15.8442C20.6866 16.4382 19.2286 16.7688 17.6935 16.7688C11.9153 16.7688 7.23116 12.0847 7.23116 6.30654C7.23116 4.77135 7.5618 3.3134 8.15577 2C4.52576 3.64163 2 7.2947 2 11.5377C2 17.3159 6.68414 22 12.4623 22C16.7053 22 20.3584 19.4742 22 15.8442Z"
-            stroke="#000000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </Svg>
-        <Switch
-          trackColor={{ false: "#81b0ff", true: "#4d4d4d" }}
-          thumbColor={isLight ? "#f4f3f4" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={changeTheme}
-          value={isLight}
+      <View style={[styles.container, { maxWidth: 800 }]}>
+        <View
           style={{
-            transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
-            marginRight: 10,
-          }}
-        />
-      </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          marginTop: 30,
-        }}
-      >
-        <SelectDropdown
-          defaultButtonText={
-            languages.find((lang) => lang.key === selectedLanguage).name
-          }
-          data={languages.map((language) => language.name)}
-          onSelect={(selectedItem, index) =>
-            changeLanguage(languages[index].key)
-          }
-          buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem;
-          }}
-          rowTextForSelection={(item, index) => {
-            return item;
-          }}
-          buttonStyle={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
             width: "100%",
-            borderRadius: 5,
             backgroundColor: theme.bg.darkColor,
             borderColor: theme.borderColor,
-            borderWidth: 1,
             paddingHorizontal: 10,
-            paddingVertical: 10,
-          }}
-          buttonTextStyle={{
-            color: "black",
-            textAlign: "left",
-          }}
-          dropdownStyle={{
+            paddingVertical: 2,
             borderRadius: 5,
-            backgroundColor: theme.bg.backgroundColor,
-            borderColor: theme.borderColor,
-            borderWidth: 1,
-            paddingHorizontal: 10,
-            paddingVertical: 15,
-            height: 181,
           }}
-          dropdownTextStyle={{
-            color: theme.bg.darkColor,
-            textAlign: "left",
+        >
+          <Svg
+            style={{ zIndex: 200 }}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="black"
+            class="bi bi-moon"
+            width="40px"
+            height="40px"
+            viewBox="0 0 24 24"
+          >
+            <Path
+              d="M22 15.8442C20.6866 16.4382 19.2286 16.7688 17.6935 16.7688C11.9153 16.7688 7.23116 12.0847 7.23116 6.30654C7.23116 4.77135 7.5618 3.3134 8.15577 2C4.52576 3.64163 2 7.2947 2 11.5377C2 17.3159 6.68414 22 12.4623 22C16.7053 22 20.3584 19.4742 22 15.8442Z"
+              stroke="#000000"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </Svg>
+          <Switch
+            trackColor={{ false: "#81b0ff", true: "#4d4d4d" }}
+            thumbColor={isLight ? "#f4f3f4" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={changeTheme}
+            value={isLight}
+            style={{
+              transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
+              marginRight: 10,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            marginTop: 30,
           }}
-          dropdownTextHighlightStyle={{
-            color: "#fff",
-          }}
-          rowTextStyle={{
-            textAlign: "left",
-          }}
-        />
+        >
+          <SelectDropdown
+            defaultButtonText={
+              languages.find((lang) => lang.key === selectedLanguage).name
+            }
+            data={languages.map((language) => language.name)}
+            onSelect={(selectedItem, index) =>
+              changeLanguage(languages[index].key)
+            }
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            buttonStyle={{
+              width: "100%",
+              borderRadius: 5,
+              backgroundColor: theme.bg.darkColor,
+              borderColor: theme.borderColor,
+              borderWidth: 1,
+              paddingHorizontal: 10,
+              paddingVertical: 10,
+            }}
+            buttonTextStyle={{
+              color: "black",
+              textAlign: "left",
+            }}
+            dropdownStyle={{
+              borderRadius: 5,
+              backgroundColor: theme.bg.backgroundColor,
+              borderColor: theme.borderColor,
+              borderWidth: 1,
+              paddingHorizontal: 10,
+              paddingVertical: 15,
+              height: 181,
+            }}
+            dropdownTextStyle={{
+              color: theme.bg.darkColor,
+              textAlign: "left",
+            }}
+            dropdownTextHighlightStyle={{
+              color: "#fff",
+            }}
+            rowTextStyle={{
+              textAlign: "left",
+              height: 48,
+              lineHeight: 48,
+            }}
+          />
+        </View>
       </View>
     </View>
   );
@@ -167,7 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     width: screenWidth,
-    maxWidth: 800,
     alignSelf: "center",
   },
   header: {

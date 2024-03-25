@@ -25,13 +25,23 @@ import {
   Dimensions,
 } from "react-native";
 
+import Settings from "./Settings";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import TranslationContext from "../translation/TranslationContext";
 
 const screenWidth = Dimensions.get("window").width;
 
-const Login = ({ onDataReceived, onResetKey, error, theme, language }) => {
+const Login = ({
+  onDataReceived,
+  onResetKey,
+  error,
+  onPressTheme,
+  theme,
+  isDarkTheme,
+  onChangeLanguage,
+  language,
+}) => {
   const translation = useContext(TranslationContext);
 
   const [masterPassword, setMasterPassword] = useState("");
@@ -39,6 +49,7 @@ const Login = ({ onDataReceived, onResetKey, error, theme, language }) => {
   const [keyboardHeight, setKeyboardHeight] = useState(new Animated.Value(0));
   const [showPassword, setShowPassword] = useState(false);
 
+  const [openSettings, setOpenSettings] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
   useEffect(() => {
@@ -54,6 +65,13 @@ const Login = ({ onDataReceived, onResetKey, error, theme, language }) => {
     fetchData();
   }, []);
 
+  const openRegistration = () => {
+    setRegistrationOpen(true);
+  };
+
+  const closeRegistration = () => {
+    setRegistrationOpen(false);
+  };
 
   const sendPasswordForVerification = async () => {
     store.dispatch({
@@ -131,84 +149,111 @@ const Login = ({ onDataReceived, onResetKey, error, theme, language }) => {
           { paddingBottom: keyboardHeight, backgroundColor: theme.bg.mainBg },
         ]}
       >
-        <View>
-          <Image
-            source={require("../assets/icon.png")}
-            style={styles.logo}
-          ></Image>
-        </View>
-        <View style={styles.inputContainer}>
-          <View
-            style={{
-              position: "absolute",
-              top: 8,
-              left: 5,
-              backgroundColor: theme.bg.mainBg,
-              zIndex: 99,
-              paddingHorizontal: 5,
-            }}
-          >
-            <Text style={[styles.inputTitle]}>
-              {translation.login.masterPassword}
-            </Text>
-          </View>
-          <TextInput
-            placeholder=""
-            onChangeText={(text) => setMasterPassword(text)}
-            secureTextEntry={!showPassword}
-            style={[
-              styles.textInput,
-              { borderColor: error === true ? "red" : "#E5E6EB" },
-            ]}
-          />
-          <TouchableOpacity
-            onPress={() => setShowPassword(!showPassword)}
-            style={styles.showPasswordBtn}
-          >
-            <Ionicons
-              name={showPassword ? "eye-off-outline" : "eye-outline"}
-              size={20}
-              color="black"
-              style={{ marginRight: 0, opacity: 0.5 }}
-            ></Ionicons>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={[
-            styles.btnContainer,
-            { opacity: masterPassword.length > 0 ? 1 : 0 },
-          ]}
+        <TouchableOpacity
+          onPress={() => {
+            setOpenSettings(true);
+          }}
+          style={{
+            position: "absolute",
+            height: 90,
+            top: 10,
+            left: 10,
+          }}
         >
-          <TouchableOpacity
-            style={[
-              styles.loginBtn,
-              { backgroundColor: theme.btnColor.primary },
-            ]}
-            onPress={sendPasswordForVerification}
-          >
-            <Text style={{ color: theme.textColor.subtitle }}>
-              {translation.login.loginBtn}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {hasData === true ? (
-          <TouchableOpacity
-            style={styles.resetBtn}
-            onPress={() => setErrorModalVisible(true)}
-          >
-            <Text>{translation.login.resetLocalData.btn}</Text>
-            <Image
-              source={require("../assets/faq.png")}
-              style={{ width: 20, height: 20, marginLeft: 10 }}
-            ></Image>
-          </TouchableOpacity>
-        ) : (
+          <Ionicons
+            name="settings-sharp"
+            size={25}
+            style={{ opacity: 0.5 }}
+          ></Ionicons>
+        </TouchableOpacity>
+        <View style={[styles.container, { width: screenWidth, maxWidth: 500 }]}>
           <View>
-            <Text style={[styles.infoText, { fontSize: 12 }]}>
-              {translation.login.loginPageDescription}
-            </Text>
+            <Image
+              source={require("../assets/icon.png")}
+              style={styles.logo}
+            ></Image>
           </View>
-        )}
+          <View style={styles.inputContainer}>
+            <View
+              style={{
+                position: "absolute",
+                top: 8,
+                left: 5,
+                backgroundColor: theme.bg.mainBg,
+                zIndex: 99,
+                paddingHorizontal: 5,
+              }}
+            >
+              <Text style={[styles.inputTitle]}>
+                {translation.login.masterPassword}
+              </Text>
+            </View>
+            <TextInput
+              placeholder=""
+              onChangeText={(text) => setMasterPassword(text)}
+              secureTextEntry={!showPassword}
+              style={[
+                styles.textInput,
+                { borderColor: error === true ? "red" : "#E5E6EB" },
+              ]}
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.showPasswordBtn}
+            >
+              <Ionicons
+                name={showPassword ? "eye-off-outline" : "eye-outline"}
+                size={20}
+                color="black"
+                style={{ marginRight: 0, opacity: 0.5 }}
+              ></Ionicons>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={[
+              styles.btnContainer,
+              { opacity: masterPassword.length > 0 ? 1 : 0 },
+            ]}
+          >
+            <TouchableOpacity
+              style={[
+                styles.loginBtn,
+                { backgroundColor: theme.btnColor.primary },
+              ]}
+              onPress={sendPasswordForVerification}
+            >
+              <Text style={{ color: theme.textColor.subtitle }}>
+                {translation.login.loginBtn}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {hasData === true ? (
+            <TouchableOpacity
+              style={styles.resetBtn}
+              onPress={() => setErrorModalVisible(true)}
+            >
+              <Text>{translation.login.resetLocalData.btn}</Text>
+              <Image
+                source={require("../assets/faq.png")}
+                style={{ width: 20, height: 20, marginLeft: 10 }}
+              ></Image>
+            </TouchableOpacity>
+          ) : (
+            <View>
+              <Text style={[styles.infoText, { fontSize: 12 }]}>
+                {translation.login.loginPageDescription}
+              </Text>
+            </View>
+          )}
+        </View>
       </Animated.View>
       <Modal
         visible={errorModalVisible}
@@ -261,6 +306,44 @@ const Login = ({ onDataReceived, onResetKey, error, theme, language }) => {
           </View>
         </View>
       </Modal>
+
+      <Modal
+        animationType="fade"
+        transparent={false}
+        style={{ backgroundColor: theme.bg.mainBg }}
+        visible={openSettings}
+        onRequestClose={() => setOpenSettings(false)}
+      >
+        <View
+          style={[
+            styles.modalHeader,
+            {
+              backgroundColor: theme.bg.darkColor,
+              paddingBottom: 5,
+              paddingTop: 10,
+            },
+          ]}
+        >
+          <TouchableOpacity
+            onPress={() => setOpenSettings(false)}
+            style={styles.closeBtn}
+          >
+            <Ionicons
+              name="arrow-back-outline"
+              size={30}
+              style={{ marginRight: "auto", opacity: 0.5, marginLeft: 10 }}
+            ></Ionicons>
+          </TouchableOpacity>
+        </View>
+        <Settings
+          theme={theme}
+          onPressTheme={onPressTheme}
+          isDarkTheme={isDarkTheme}
+          onChangeLanguage={onChangeLanguage}
+          selectedLanguage={language}
+          style={{ backgroundColor: theme.bg.mainBg }}
+        ></Settings>
+      </Modal>
     </>
   );
 };
@@ -270,7 +353,6 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     width: screenWidth,
-    maxWidth: 500,
     alignSelf: "center",
     paddingTop: 50,
     paddingHorizontal: "auto",
@@ -317,7 +399,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.4)", 
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
   modalContent: {
     backgroundColor: "white",

@@ -55,7 +55,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { LogBox } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
-LogBox.ignoreLogs(["Warning: ..."]); 
+LogBox.ignoreLogs(["Warning: ..."]);
 LogBox.ignoreAllLogs();
 
 import translations from "./translation/translations.js";
@@ -93,15 +93,11 @@ export default function App() {
         } else {
           if (currentLocale.startsWith("ru")) {
             setSelectedLanguage("ru");
-          }
-          if (currentLocale.startsWith("en")) {
-            setSelectedLanguage("en");
           } else {
-            setSelectedLanguage("fr");
+            setSelectedLanguage("en");
           }
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     loadSettings();
@@ -280,7 +276,7 @@ export default function App() {
           }
         } catch (error) {
           setErrorLoginMessage(true);
-          setDecryptionSuccess(false); 
+          setDecryptionSuccess(false);
           setShowFAQ(false);
         }
       } else {
@@ -288,7 +284,7 @@ export default function App() {
         setFirstTimeLogin(true);
       }
     } catch (error) {
-      setDecryptionSuccess(false); 
+      setDecryptionSuccess(false);
     }
     setLoading(false);
   };
@@ -317,7 +313,7 @@ export default function App() {
       });
 
       if (userData !== null && key !== null) {
-          setLocalData(true);
+        setLocalData(true);
         setMasterPassword(key);
         try {
           const decryptedUserData = decryptObject(userData, key);
@@ -382,8 +378,7 @@ export default function App() {
         }
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const getDataFromBlockchain = async (key) => {
@@ -532,12 +527,10 @@ export default function App() {
             await getCurrentCommissionSize();
           } else {
           }
-        } catch (error) {
-        }
+        } catch (error) {}
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const resetAllKeys = () => {
@@ -546,7 +539,9 @@ export default function App() {
     setMasterPassword("");
   };
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor:currentTheme.bg.mainBg}}>
+    <GestureHandlerRootView
+      style={{ flex: 1, backgroundColor: currentTheme.bg.mainBg }}
+    >
       <TranslationContext.Provider value={translations[selectedLanguage]}>
         <Provider store={store}>
           {screenWidth < 750 && <StatusBar backgroundColor="#969393" />}
@@ -587,13 +582,13 @@ export default function App() {
             </Modal>
           )}
           {loading === true && (
-           <Modal visible={loading} transparent={false}>
-           <Loader theme={currentTheme} status={"loading"}></Loader>
-           </Modal>
+            <Modal visible={loading} transparent={false}>
+              <Loader theme={currentTheme} status={"loading"}></Loader>
+            </Modal>
           )}
           {localData ? (
             masterPassword && loading === false ? (
-              decryptionSuccess  ? (
+              decryptionSuccess ? (
                 <AppNavigator
                   onDecryptData={getLocalDataForMultipleAccounts}
                   handleMasterPassword={handleMasterPasswordForMultipleAccounts}
@@ -612,21 +607,51 @@ export default function App() {
                   error={errorLoginMessage}
                   onDataReceived={handleMasterPassword}
                   onResetKey={resetAllKeys}
+                  onPressTheme={toggleTheme}
                   theme={currentTheme}
+                  isDarkTheme={isDarkTheme}
+                  onChangeLanguage={changeLanguage}
                   language={selectedLanguage}
                 />
-              ) : (<></>)
+              ) : (
+                <></>
+              )
             ) : !loading ? (
               <Login
                 error={errorLoginMessage}
                 onDataReceived={handleMasterPassword}
                 onResetKey={resetAllKeys}
+                onPressTheme={toggleTheme}
                 theme={currentTheme}
+                isDarkTheme={isDarkTheme}
+                onChangeLanguage={changeLanguage}
                 language={selectedLanguage}
               />
-            ) : (<></>)
-          ) : masterPassword ? (
+            ) : (
+              <></>
+            )
+          ) : masterPassword && modalVisible ? (
             <Modal visible={modalVisible}>
+              <View
+                style={[
+                  {
+                    backgroundColor: currentTheme.bg.darkColor,
+                    paddingTop: 10,
+                  },
+                ]}
+              >
+                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                  <Ionicons
+                    name="arrow-back-outline"
+                    size={30}
+                    style={{
+                      marginRight: "auto",
+                      opacity: 0.5,
+                      marginLeft: 10,
+                    }}
+                  ></Ionicons>
+                </TouchableOpacity>
+              </View>
               <ConnectWallet
                 onDecryptData={getLocalData}
                 onDecryptDataAndDecompress={decryptAndDecompress}
@@ -639,15 +664,19 @@ export default function App() {
               />
             </Modal>
           ) : !loading ? (
-            
             <Login
               error={errorLoginMessage}
               onDataReceived={handleMasterPassword}
               onResetKey={resetAllKeys}
+              onPressTheme={toggleTheme}
               theme={currentTheme}
+              isDarkTheme={isDarkTheme}
+              onChangeLanguage={changeLanguage}
               language={selectedLanguage}
             />
-          ) : (<></>)}
+          ) : (
+            <></>
+          )}
         </Provider>
       </TranslationContext.Provider>
     </GestureHandlerRootView>

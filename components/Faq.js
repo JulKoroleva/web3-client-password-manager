@@ -107,79 +107,59 @@ const Faq = ({ theme }) => {
         }}
         activeOpacity={1}
       ></TouchableOpacity>
-      <View style={styles.progressContainer}>
-        {stories.map((story, index) => (
-          <View
-            key={index}
-            style={[
-              styles.progressIndicator,
-              index === activeIndex ? styles.activeProgress : null,
-            ]}
-          >
-            {index === activeIndex && (
-              <Animated.View
-                style={[
-                  styles.progressBar,
-                  {
-                    width: progressBarWidth,
-                  },
-                ]}
-              />
-            )}
-          </View>
-        ))}
-      </View>
-      {stories[activeIndex].image && (
-        <Image source={stories[activeIndex].image} style={styles.image}></Image>
-      )}
       <View
-        style={{
-          width: "80%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 250,
-        }}
+        style={[
+          styles.container,
+          { maxWidth: 800, backgroundColor: theme.bg.mainBg },
+        ]}
       >
-        <Text style={styles.description}>{stories[activeIndex].caption}</Text>
-        {stories[activeIndex].instruction && (
-          <FlatList
-            data={stories[activeIndex].instruction}
-            renderItem={({ item }) => (
-              <Text style={{ marginBottom: 10, textAlign: "justify", height: item.icon ? 45 : ""}}>
-                {item.text}
-                {item.icon && (
-                  <Image
-                    source={item.icon}
-                    style={{ width: 20, height: 20}}
-                    resizeMode="cover"
-                  ></Image>
-                )}
-              </Text>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            style={styles.instruction}
-          />
+        <View style={styles.progressContainer}>
+          {stories.map((story, index) => (
+            <View
+              key={index}
+              style={[
+                styles.progressIndicator,
+                index === activeIndex ? styles.activeProgress : null,
+              ]}
+            >
+              {index === activeIndex && (
+                <Animated.View
+                  style={[
+                    styles.progressBar,
+                    {
+                      width: progressBarWidth,
+                    },
+                  ]}
+                />
+              )}
+            </View>
+          ))}
+        </View>
+        {stories[activeIndex].image && (
+          <Image
+            source={stories[activeIndex].image}
+            style={styles.image}
+          ></Image>
         )}
-        {stories[activeIndex].description && (
-          <FlatList
-            data={stories[activeIndex].description}
-            renderItem={({ item }) => (
-              <>
+        <View
+          style={{
+            width: "80%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 250,
+          }}
+        >
+          <Text style={styles.description}>{stories[activeIndex].caption}</Text>
+          {stories[activeIndex].instruction && (
+            <FlatList
+              data={stories[activeIndex].instruction}
+              renderItem={({ item }) => (
                 <Text
                   style={{
+                    marginBottom: 10,
                     textAlign: "justify",
-                    fontWeight: "bold",
-                    color: theme.btnColor.primary,
-                  }}
-                >
-                  {item.title}
-                </Text>
-                <Text
-                  style={{
-                    marginBottom: 5,
-                    textAlign: "justify",
-                    opacity: 0.8,
+                    height: item.icon ? 45 : "",
                   }}
                 >
                   {item.text}
@@ -187,15 +167,51 @@ const Faq = ({ theme }) => {
                     <Image
                       source={item.icon}
                       style={{ width: 20, height: 20 }}
+                      resizeMode="cover"
                     ></Image>
                   )}
                 </Text>
-              </>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            style={[styles.description, { marginTop: 0, height:400}]}
-          />
-        )}
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              style={styles.instruction}
+            />
+          )}
+          {stories[activeIndex].description && (
+            <FlatList
+              data={stories[activeIndex].description}
+              renderItem={({ item }) => (
+                <>
+                  <Text
+                    style={{
+                      textAlign: "justify",
+                      fontWeight: "bold",
+                      color: theme.btnColor.primary,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                  <Text
+                    style={{
+                      marginBottom: 5,
+                      textAlign: "justify",
+                      opacity: 0.8,
+                    }}
+                  >
+                    {item.text}
+                    {item.icon && (
+                      <Image
+                        source={item.icon}
+                        style={{ width: 20, height: 20 }}
+                      ></Image>
+                    )}
+                  </Text>
+                </>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              style={[styles.description, { marginTop: 0, height: 400 }]}
+            />
+          )}
+        </View>
       </View>
     </View>
   );
@@ -207,13 +223,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: screenWidth,
-    maxWidth: 800,
     alignSelf: "center",
   },
   progressContainer: {
     flexDirection: "row",
     marginBottom: 10,
     marginTop: 40,
+    width: "100%",
+    justifyContent: "center",
   },
   progressIndicator: {
     width: "12%",

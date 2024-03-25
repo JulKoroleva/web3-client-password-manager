@@ -43,6 +43,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 
 import { downloadBlob } from "../utils/utils.js";
@@ -58,6 +59,7 @@ import AdminPanel from "../components/AdminPanel";
 import ConnectWallet from "../components/ConnectWallet";
 import PasswordGeneration from "../components/PasswordGeneration.js";
 
+const screenWidth = Dimensions.get("window").width;
 const Drawer = createDrawerNavigator();
 
 const AppNavigator = ({
@@ -370,7 +372,7 @@ const AppNavigator = ({
             name={translation.appNavigator.AboutScreen}
             children={() => <Faq theme={theme} />}
             options={{
-              headerShown: false,
+              // headerShown: screenWidth > 800 ? true : false,
               headerTitle: "",
               headerStyle: { backgroundColor: theme.bg.darkColor },
               drawerIcon: ({ focused, color, size }) => (
@@ -494,7 +496,7 @@ const AppNavigator = ({
               ></Ionicons>
             </TouchableOpacity>
 
-            <Text style={{ opacity: 0.7, textAlign:"center" }}>
+            <Text style={{ opacity: 0.7, textAlign: "center" }}>
               {translation.appNavigator.downloadPasswords}
             </Text>
 

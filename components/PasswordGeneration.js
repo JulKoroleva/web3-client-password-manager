@@ -132,6 +132,14 @@ const PasswordGeneration = ({ theme }) => {
               value={generatedPassword}
               placeholder={translation.passwordGeneration.placeholder1}
               editable={false}
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TouchableOpacity
               onPress={() => copyToClipboard(generatedPassword)}
@@ -175,6 +183,14 @@ const PasswordGeneration = ({ theme }) => {
               value={inputText}
               placeholder={translation.passwordGeneration.placeholder2}
               onChangeText={handleInputChange}
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TouchableOpacity
               onPress={() => setInputText("")}

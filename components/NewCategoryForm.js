@@ -150,6 +150,7 @@ const NewCategoryForm = ({ onClose, theme }) => {
         scrollEnabled={scrollEnabled}
         endFillColor={theme.bg.mainBg}
         overScrollMode="never"
+        style={{ backgroundColor: theme.bg.mainBg }}
       >
         <View
           style={[
@@ -175,6 +176,14 @@ const NewCategoryForm = ({ onClose, theme }) => {
                     backgroundColor: theme.bg.mainBg,
                   },
                 ]}
+                onFocus={() => {
+                  if (typeof document !== "undefined") {
+                    let inputs = document.getElementsByTagName("input");
+                    for (let i = 0; i < inputs.length; i++) {
+                      inputs[i].style.outline = "none";
+                    }
+                  }
+                }}
               />
               {modalValidation.category && (
                 <Text style={styles.validationError}>
@@ -208,15 +217,16 @@ const NewCategoryForm = ({ onClose, theme }) => {
             </View>
           </View>
         </View>
+        <TouchableOpacity
+          style={[styles.addBtn, { backgroundColor: theme.btnColor.primary }]}
+          onPress={() => addCategory()}
+          activeOpacity={1}
+        >
+          <Text style={{ color: "white" }}>
+            {translation.newCategoryForm.confirmBtn}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
-      <TouchableOpacity
-        style={[styles.addBtn, { backgroundColor: theme.btnColor.primary }]}
-        onPress={() => addCategory()}
-      >
-        <Text style={{ color: "white" }}>
-          {translation.newCategoryForm.confirmBtn}
-        </Text>
-      </TouchableOpacity>
     </>
   );
 };
@@ -245,8 +255,8 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   colorContainer: {},
-  scrollViewContainer:{
-  flex:1
+  scrollViewContainer: {
+    flex: 1,
   },
   addBtn: {
     alignItems: "center",

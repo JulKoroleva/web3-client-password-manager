@@ -109,8 +109,7 @@ const ConnectWallet = ({
       let allAccounts;
       try {
         allAccounts = await getAllAccounts();
-      } catch (error) {
-      }
+      } catch (error) {}
       const newRoutes = [...routes];
       for (let i = 0; i < allAccounts.length; i++) {
         newRoutes.push(allAccounts[i]);
@@ -209,8 +208,7 @@ const ConnectWallet = ({
       await AsyncStorage.setItem("walletList", encryptedWallet);
       try {
         await onDecryptData(masterPassword);
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -319,8 +317,7 @@ const ConnectWallet = ({
 
       if (masterPassword !== undefined) {
         try {
-          
-      setLoading(true);
+          setLoading(true);
           const res = await onDecryptData(newFileName, masterPassword);
 
           setNewWalletStatus(res);
@@ -333,8 +330,8 @@ const ConnectWallet = ({
               newUserAddress: "Заполните поле",
             }));
           }
-          
-      setLoading(false);
+
+          setLoading(false);
         } catch (error) {
           return;
         }
@@ -654,7 +651,7 @@ const ConnectWallet = ({
             <View
               style={[
                 styles.container,
-                { paddingTop: 60, backgroundColor: theme.bg.mainBg },
+                { paddingTop: 30, backgroundColor: theme.bg.mainBg },
               ]}
             >
               <>
@@ -691,6 +688,14 @@ const ConnectWallet = ({
                     }}
                     minLength={3}
                     maxLength={15}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
 
                   <TextInput
@@ -713,6 +718,14 @@ const ConnectWallet = ({
                       const newDataValidation = { ...modalValidation };
                       delete newDataValidation.nodeUrl;
                       setModalValidation(newDataValidation);
+                    }}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
                     }}
                   />
                 </View>
@@ -773,6 +786,14 @@ const ConnectWallet = ({
                       delete newDataValidation.contractAddress;
                       setModalValidation(newDataValidation);
                     }}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
                   <TouchableOpacity
                     onPress={() => copyToClipboard(contractAddress)}
@@ -820,6 +841,14 @@ const ConnectWallet = ({
                         maxWidth: screenWidth,
                       },
                     ]}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
                   <TouchableOpacity
                     onPress={() => copyToClipboard(newUserAddress)}
@@ -866,6 +895,14 @@ const ConnectWallet = ({
                         maxWidth: screenWidth,
                       },
                     ]}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   ></TextInput>
                   <TouchableOpacity
                     onPress={() => copyToClipboard(newPrivateKey)}
@@ -1054,6 +1091,14 @@ const ConnectWallet = ({
                       }}
                       minLength={3}
                       maxLength={15}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
 
                     <TextInput
@@ -1076,6 +1121,14 @@ const ConnectWallet = ({
                         delete newDataValidation.nodeUrl;
                         setModalValidation(newDataValidation);
                         setNewWalletStatus(true);
+                      }}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
                       }}
                     />
                   </View>
@@ -1128,6 +1181,14 @@ const ConnectWallet = ({
                         setModalValidation(newDataValidation);
                         setNewWalletStatus(true);
                       }}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                     <TouchableOpacity
                       onPress={() => copyToClipboard(contractAddress)}
@@ -1175,6 +1236,14 @@ const ConnectWallet = ({
                           backgroundColor: theme.bg.backgroundColor,
                         },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                     <TouchableOpacity
                       onPress={() => copyToClipboard(newUserAddress)}
@@ -1221,6 +1290,14 @@ const ConnectWallet = ({
                           backgroundColor: theme.bg.backgroundColor,
                         },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     ></TextInput>
                     <TouchableOpacity
                       onPress={() => copyToClipboard(newPrivateKey)}
@@ -1257,8 +1334,8 @@ const ConnectWallet = ({
       </Modal>
       {loading && (
         <Modal visible={loading} transparent={false}>
-        <Loader theme={theme} status={loadingStatus}></Loader>
-      </Modal>
+          <Loader theme={theme} status={loadingStatus}></Loader>
+        </Modal>
       )}
     </>
   );

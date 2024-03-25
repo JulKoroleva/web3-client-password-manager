@@ -340,6 +340,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
           placeholderTextColor={
             modalValidation.itemName ? "red" : "rgba(0,0,0,0.5)"
           }
+          onFocus={() => {
+            if (typeof document !== "undefined") {
+              let inputs = document.getElementsByTagName("input");
+              for (let i = 0; i < inputs.length; i++) {
+                inputs[i].style.outline = "none";
+              }
+            }
+          }}
         />
         <ScrollView
           style={{
@@ -493,74 +501,97 @@ const AboutScreen = ({ onClose, theme, language }) => {
                       <View
                         style={[
                           styles.modalContainer,
-                          { backgroundColor: theme.bg.mainBg },
+                          {
+                            backgroundColor: theme.bg.mainBg,
+                            width: screenWidth,
+                          },
                         ]}
                       >
                         <View
                           style={[
-                            styles.searchContainer,
-                            { backgroundColor: theme.bg.backgroundColor },
+                            {
+                              backgroundColor: theme.bg.mainBg,
+                              maxWidth: 800,
+                              width: "100%",
+                              alignSelf: "center",
+                            },
                           ]}
                         >
-                          <Text style={{ marginHorizontal: 5 }}>
-                            <FontAwesome
-                              name={"search"}
-                              color={"#000000"}
-                              size={18}
-                            />
-                          </Text>
-                          <TextInput
+                          <View
                             style={[
-                              styles.searchInput,
-                              { borderColor: theme.borderColor },
+                              styles.searchContainer,
+                              { backgroundColor: theme.bg.backgroundColor },
                             ]}
-                            placeholder={translation.addForm.search}
-                            onChangeText={(text) => setSearchText(text)}
-                          />
-                        </View>
-
-                        <ScrollView
-                          showsVerticalScrollIndicator={false}
-                          alwaysBounceVertical={false}
-                          contentContainerStyle={styles.scrollViewContainer}
-                          endFillColor="#000"
-                          overScrollMode="never"
-                        >
-                          {filteredApplications.map((item, index) => (
-                            <TouchableOpacity
-                              key={index}
+                          >
+                            <Text style={{ marginHorizontal: 5 }}>
+                              <FontAwesome
+                                name={"search"}
+                                color={"#000000"}
+                                size={18}
+                              />
+                            </Text>
+                            <TextInput
                               style={[
-                                styles.option,
+                                styles.searchInput,
                                 { borderColor: theme.borderColor },
                               ]}
-                              onPress={() => {
-                                setModalVisible(false);
-                                handleInputChange("name", item.title);
-                                setItemData((prevData) => ({
-                                  ...prevData,
-                                  icon: item.image,
-                                }));
+                              placeholder={translation.addForm.search}
+                              onChangeText={(text) => setSearchText(text)}
+                              onFocus={() => {
+                                if (typeof document !== "undefined") {
+                                  let inputs =
+                                    document.getElementsByTagName("input");
+                                  for (let i = 0; i < inputs.length; i++) {
+                                    inputs[i].style.outline = "none";
+                                  }
+                                }
                               }}
-                            >
-                              <Image
-                                key={item.title}
-                                source={item.image}
-                                style={styles.optionImage}
-                              />
-                              <Text style={styles.dropdownRowTxt}>
-                                {item.title}
-                              </Text>
-                            </TouchableOpacity>
-                          ))}
-                        </ScrollView>
+                            />
+                          </View>
+
+                          <ScrollView
+                            showsVerticalScrollIndicator={false}
+                            alwaysBounceVertical={false}
+                            contentContainerStyle={styles.scrollViewContainer}
+                            endFillColor="#000"
+                            overScrollMode="never"
+                          >
+                            {filteredApplications.map((item, index) => (
+                              <TouchableOpacity
+                                key={index}
+                                style={[
+                                  styles.option,
+                                  { borderColor: theme.borderColor },
+                                ]}
+                                onPress={() => {
+                                  setModalVisible(false);
+                                  handleInputChange("name", item.title);
+                                  setItemData((prevData) => ({
+                                    ...prevData,
+                                    icon: item.image,
+                                  }));
+                                }}
+                              >
+                                <Image
+                                  key={item.title}
+                                  source={item.image}
+                                  style={styles.optionImage}
+                                />
+                                <Text style={styles.dropdownRowTxt}>
+                                  {item.title}
+                                </Text>
+                              </TouchableOpacity>
+                            ))}
+                          </ScrollView>
+                        </View>
                         <TouchableOpacity
                           onPress={() => {
                             acceptAppName(searchText);
                           }}
                           style={{
                             position: "absolute",
-                            bottom: 10,
-                            right: 10,
+                            bottom: 30,
+                            right: 30,
                             alignItems: "center",
                             borderRadius: 50,
                             backgroundColor: "#668cad",
@@ -623,70 +654,90 @@ const AboutScreen = ({ onClose, theme, language }) => {
                     >
                       <View
                         style={[
-                          styles.searchContainer,
-                          { backgroundColor: theme.bg.backgroundColor },
+                          {
+                            backgroundColor: theme.bg.mainBg,
+                            maxWidth: 800,
+                            width: "100%",
+                            alignSelf: "center",
+                          },
                         ]}
                       >
-                        <Text style={{ marginHorizontal: 5 }}>
-                          <FontAwesome
-                            name={"search"}
-                            color={"#000000"}
-                            size={18}
-                          />
-                        </Text>
-                        <TextInput
+                        <View
                           style={[
-                            styles.searchInput,
-                            { borderColor: theme.borderColor },
+                            styles.searchContainer,
+                            { backgroundColor: theme.bg.backgroundColor },
                           ]}
-                          placeholder={translation.addForm.search}
-                          onChangeText={(text) => setSearchText(text)}
-                          maxLength={10}
-                        />
-                      </View>
-
-                      <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        alwaysBounceVertical={false}
-                        contentContainerStyle={styles.scrollViewContainer}
-                        endFillColor="#000"
-                        overScrollMode="never"
-                      >
-                        {filteredApplications.map((item, index) => (
-                          <TouchableOpacity
-                            key={index}
+                        >
+                          <Text style={{ marginHorizontal: 5 }}>
+                            <FontAwesome
+                              name={"search"}
+                              color={"#000000"}
+                              size={18}
+                            />
+                          </Text>
+                          <TextInput
                             style={[
-                              styles.option,
+                              styles.searchInput,
                               { borderColor: theme.borderColor },
                             ]}
-                            onPress={() => {
-                              setModalVisible(false);
-                              handleInputChange("name", item.title);
-                              setItemData((prevData) => ({
-                                ...prevData,
-                                icon: item.image,
-                              }));
+                            placeholder={translation.addForm.search}
+                            onChangeText={(text) => setSearchText(text)}
+                            maxLength={10}
+                            onFocus={() => {
+                              if (typeof document !== "undefined") {
+                                let inputs =
+                                  document.getElementsByTagName("input");
+                                for (let i = 0; i < inputs.length; i++) {
+                                  inputs[i].style.outline = "none";
+                                }
+                              }
                             }}
-                          >
-                            <Image
-                              key={item.title}
-                              source={item.image}
-                              style={styles.optionImage}
-                            />
-                            <Text style={styles.dropdownRowTxt}>
-                              {item.title}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </ScrollView>
+                          />
+                        </View>
+
+                        <ScrollView
+                          showsVerticalScrollIndicator={false}
+                          alwaysBounceVertical={false}
+                          contentContainerStyle={styles.scrollViewContainer}
+                          endFillColor="#000"
+                          overScrollMode="never"
+                        >
+                          {filteredApplications.map((item, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              style={[
+                                styles.option,
+                                { borderColor: theme.borderColor },
+                              ]}
+                              onPress={() => {
+                                setModalVisible(false);
+                                handleInputChange("name", item.title);
+                                setItemData((prevData) => ({
+                                  ...prevData,
+                                  icon: item.image,
+                                }));
+                              }}
+                            >
+                              <Image
+                                key={item.title}
+                                source={item.image}
+                                style={styles.optionImage}
+                              />
+                              <Text style={styles.dropdownRowTxt}>
+                                {item.title}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                        </ScrollView>
+                      </View>
                       <TouchableOpacity
                         onPress={() => {
                           acceptAppName(searchText);
                         }}
                         style={{
                           position: "absolute",
-                          bottom: 10,
-                          right: 10,
+                          bottom: 30,
+                          right: 30,
                           alignItems: "center",
                           borderRadius: 50,
                           backgroundColor: "#668cad",
@@ -719,6 +770,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                           styles.textInput,
                           { borderColor: theme.borderColor },
                         ]}
+                        onFocus={() => {
+                          if (typeof document !== "undefined") {
+                            let inputs = document.getElementsByTagName("input");
+                            for (let i = 0; i < inputs.length; i++) {
+                              inputs[i].style.outline = "none";
+                            }
+                          }
+                        }}
                       />
                     )}
                     <TextInput
@@ -729,6 +788,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                         styles.textInput,
                         { borderColor: theme.borderColor },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                     <TextInput
                       placeholder={translation.addForm.password}
@@ -741,6 +808,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                         styles.textInput,
                         { borderColor: theme.borderColor },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                   </>
                 )}
@@ -789,70 +864,90 @@ const AboutScreen = ({ onClose, theme, language }) => {
                     >
                       <View
                         style={[
-                          styles.searchContainer,
-                          { backgroundColor: theme.bg.backgroundColor },
+                          {
+                            backgroundColor: theme.bg.mainBg,
+                            maxWidth: 800,
+                            width: "100%",
+                            alignSelf: "center",
+                          },
                         ]}
                       >
-                        <Text style={{ marginHorizontal: 5 }}>
-                          <FontAwesome
-                            name={"search"}
-                            color={"#000000"}
-                            size={18}
-                          />
-                        </Text>
-                        <TextInput
+                        <View
                           style={[
-                            styles.searchInput,
-                            { borderColor: theme.borderColor },
+                            styles.searchContainer,
+                            { backgroundColor: theme.bg.backgroundColor },
                           ]}
-                          placeholder={translation.addForm.search}
-                          onChangeText={(text) => setSearchText(text)}
-                          maxLength={10}
-                        />
-                      </View>
-
-                      <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        alwaysBounceVertical={false}
-                        contentContainerStyle={styles.scrollViewContainer}
-                        endFillColor="#000"
-                        overScrollMode="never"
-                      >
-                        {filteredPaymentsCards.map((item, index) => (
-                          <TouchableOpacity
-                            key={index}
+                        >
+                          <Text style={{ marginHorizontal: 5 }}>
+                            <FontAwesome
+                              name={"search"}
+                              color={"#000000"}
+                              size={18}
+                            />
+                          </Text>
+                          <TextInput
                             style={[
-                              styles.option,
+                              styles.searchInput,
                               { borderColor: theme.borderColor },
                             ]}
-                            onPress={() => {
-                              setModalVisible(false);
-                              handleInputChange("name", item.title);
-                              setItemData((prevData) => ({
-                                ...prevData,
-                                icon: item.image,
-                              }));
+                            placeholder={translation.addForm.search}
+                            onChangeText={(text) => setSearchText(text)}
+                            maxLength={10}
+                            onFocus={() => {
+                              if (typeof document !== "undefined") {
+                                let inputs =
+                                  document.getElementsByTagName("input");
+                                for (let i = 0; i < inputs.length; i++) {
+                                  inputs[i].style.outline = "none";
+                                }
+                              }
                             }}
-                          >
-                            <Image
-                              key={item.title}
-                              source={item.image}
-                              style={styles.optionImage}
-                            />
-                            <Text style={styles.dropdownRowTxt}>
-                              {item.title}
-                            </Text>
-                          </TouchableOpacity>
-                        ))}
-                      </ScrollView>
+                          />
+                        </View>
+
+                        <ScrollView
+                          showsVerticalScrollIndicator={false}
+                          alwaysBounceVertical={false}
+                          contentContainerStyle={styles.scrollViewContainer}
+                          endFillColor="#000"
+                          overScrollMode="never"
+                        >
+                          {filteredPaymentsCards.map((item, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              style={[
+                                styles.option,
+                                { borderColor: theme.borderColor },
+                              ]}
+                              onPress={() => {
+                                setModalVisible(false);
+                                handleInputChange("name", item.title);
+                                setItemData((prevData) => ({
+                                  ...prevData,
+                                  icon: item.image,
+                                }));
+                              }}
+                            >
+                              <Image
+                                key={item.title}
+                                source={item.image}
+                                style={styles.optionImage}
+                              />
+                              <Text style={styles.dropdownRowTxt}>
+                                {item.title}
+                              </Text>
+                            </TouchableOpacity>
+                          ))}
+                        </ScrollView>
+                      </View>
                       <TouchableOpacity
                         onPress={() => {
                           acceptAppName(searchText);
                         }}
                         style={{
                           position: "absolute",
-                          bottom: 10,
-                          right: 10,
+                          bottom: 30,
+                          right: 30,
                           alignItems: "center",
                           borderRadius: 50,
                           backgroundColor: theme.btnColor.primary,
@@ -887,6 +982,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                     maxLength={23}
                     value={itemData.number}
                     onChangeText={(text) => formatCardNumber(text)}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
                   <View style={styles.dateContainer}>
                     <TextInput
@@ -904,6 +1007,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                         styles.dateInput,
                         { borderColor: theme.borderColor },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                     <Text>{`/`}</Text>
                     <TextInput
@@ -918,6 +1029,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                         styles.dateInput,
                         { borderColor: theme.borderColor },
                       ]}
+                      onFocus={() => {
+                        if (typeof document !== "undefined") {
+                          let inputs = document.getElementsByTagName("input");
+                          for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].style.outline = "none";
+                          }
+                        }
+                      }}
                     />
                   </View>
                   <TextInput
@@ -928,6 +1047,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                       styles.textInput,
                       { borderColor: theme.borderColor },
                     ]}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
                   <TextInput
                     placeholder="CVC2/CVV2"
@@ -938,6 +1065,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                       styles.textInput,
                       { borderColor: theme.borderColor },
                     ]}
+                    onFocus={() => {
+                      if (typeof document !== "undefined") {
+                        let inputs = document.getElementsByTagName("input");
+                        for (let i = 0; i < inputs.length; i++) {
+                          inputs[i].style.outline = "none";
+                        }
+                      }
+                    }}
                   />
                   <TouchableOpacity
                     onPress={toggleAdditionalFields}
@@ -996,6 +1131,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                     styles.textInput,
                     { marginTop: 0, borderColor: theme.borderColor },
                   ]}
+                  onFocus={() => {
+                    if (typeof document !== "undefined") {
+                      let inputs = document.getElementsByTagName("input");
+                      for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].style.outline = "none";
+                      }
+                    }
+                  }}
                 />
 
                 <TextInput
@@ -1003,6 +1146,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                   value={itemData.additionalInfo.bankTel}
                   onChangeText={(text) => handleInputChange("bankTel", text)}
                   style={[styles.textInput, { borderColor: theme.borderColor }]}
+                  onFocus={() => {
+                    if (typeof document !== "undefined") {
+                      let inputs = document.getElementsByTagName("input");
+                      for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].style.outline = "none";
+                      }
+                    }
+                  }}
                 />
                 <TextInput
                   placeholder={translation.addForm.bankMailAdress}
@@ -1012,6 +1163,14 @@ const AboutScreen = ({ onClose, theme, language }) => {
                     styles.textInput,
                     { marginBottom: 50, borderColor: theme.borderColor },
                   ]}
+                  onFocus={() => {
+                    if (typeof document !== "undefined") {
+                      let inputs = document.getElementsByTagName("input");
+                      for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].style.outline = "none";
+                      }
+                    }
+                  }}
                 />
               </>
             )}
@@ -1035,6 +1194,7 @@ const AboutScreen = ({ onClose, theme, language }) => {
             justifyContent: "center",
             alignItems: "center",
             paddingBottom: 100,
+            backgroundColor: theme.bg.backgroundColor,
           }}
         >
           <View
@@ -1049,6 +1209,7 @@ const AboutScreen = ({ onClose, theme, language }) => {
             <TouchableOpacity
               onPress={toggleNewCategoryForm}
               style={styles.closeBtn}
+              activeOpacity={1}
             >
               <Svg
                 width="40"
@@ -1120,6 +1281,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginHorizontal: 12,
+    height: 50,
+    lineHeight: 50,
   },
   scrollViewContainer: {
     flexGrow: 1,

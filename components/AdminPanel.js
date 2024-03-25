@@ -377,6 +377,14 @@ const AdminPanel = ({ onLoading, theme }) => {
                 delete newDataValidation.recipientAddress;
                 setDataValidation(newDataValidation);
               }}
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TextInput
               value={totalTokensForRecipient}
@@ -396,6 +404,14 @@ const AdminPanel = ({ onLoading, theme }) => {
                 setDataValidation(newDataValidation);
               }}
               keyboardType="numeric"
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TouchableOpacity
               onPress={async () => addTokens()}
@@ -490,6 +506,14 @@ const AdminPanel = ({ onLoading, theme }) => {
                 delete newDataValidation.newCommissionRecipientAddress;
                 setDataValidation(newDataValidation);
               }}
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TouchableOpacity
               onPress={async () => updateRecipientAddress()}
@@ -572,6 +596,14 @@ const AdminPanel = ({ onLoading, theme }) => {
                 setDataValidation(newDataValidation);
               }}
               keyboardType="numeric"
+              onFocus={() => {
+                if (typeof document !== "undefined") {
+                  let inputs = document.getElementsByTagName("input");
+                  for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].style.outline = "none";
+                  }
+                }
+              }}
             />
             <TouchableOpacity
               onPress={async () => sendNewCommissionSize()}
