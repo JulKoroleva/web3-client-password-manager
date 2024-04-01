@@ -21,11 +21,15 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "adaptiveIcon": { 
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#00ffffff" 
+      },
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -54,7 +58,7 @@
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#00ffffff"
       },
       "package": "com.koroleva57.web3warden"
     },
