@@ -77,6 +77,8 @@ const Login = ({
   ];
   const animatedValue = useRef(new Animated.Value(0)).current;
   const opacity = useRef(new Animated.Value(0)).current;
+  const opacityLogo = useRef(new Animated.Value(0)).current;
+
   const animatedColors = {
     color1: new Animated.Value(0),
     color2: new Animated.Value(1),
@@ -206,6 +208,13 @@ const Login = ({
         useNativeDriver: false,
         delay: 300,
       }),
+      Animated.timing(opacityLogo, {
+        toValue: 1,
+        duration: 500,
+        easing: Easing.ease,
+        useNativeDriver: false,
+        delay: 800,
+      }),
     ]).start();
   }, []);
 
@@ -247,7 +256,7 @@ const Login = ({
       <Animated.View
         style={[
           styles.container,
-          { paddingBottom: keyboardHeight, backgroundColor: theme.bg.mainBg },
+          { paddingBottom: keyboardHeight, backgroundColor: theme.bg.mainBg, opacity: opacity, },
         ]}
       >
         <TouchableOpacity
@@ -269,7 +278,7 @@ const Login = ({
         </TouchableOpacity>
         <View style={[styles.container, { width: screenWidth, maxWidth: 500 }]}>
           <View>
-            <Animated.View style={[{ opacity: opacity, marginBottom: 50 }]}>
+            <Animated.View style={[{ opacity: opacityLogo, marginBottom: 50 }]}>
               <Svg
                 width="103"
                 height="104"
