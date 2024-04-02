@@ -448,7 +448,7 @@ const AppNavigator = ({
       </Modal>
 
       <Modal
-        animationType="fade"
+        animationType="none"
         transparent={false}
         visible={openSettings}
         onRequestClose={() => setOpenSettings(false)}

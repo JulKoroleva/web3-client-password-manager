@@ -933,7 +933,7 @@ const ConnectWallet = ({
           </ScrollView>
         </>
       )}
-      <Modal visible={infoModalVisible} animationType="fade" transparent={true}>
+      <Modal visible={infoModalVisible} animationType="none" transparent={true}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <TouchableOpacity

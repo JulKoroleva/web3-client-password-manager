@@ -35,7 +35,8 @@ const theme = StyleSheet.create({
       walletIcon: "walletDarkTheme",
       activityIndicator: "#353535",
       mainTitle: "#edebeb",
-      walletIcon:"#fff"
+      walletIcon:"#fff",
+      logoText:"#fff",
   },
   DefaultTheme: {
     bg: { backgroundColor: "#f2f2f2", FlatList: "#E5E6EB", mainBg: "#fff", darkColor: "#fff" },
@@ -56,7 +57,8 @@ const theme = StyleSheet.create({
       walletIcon: "walletIcon",
       activityIndicator: "#2f6d9f",
       mainTitle: "#a6a4a4",
-      walletIcon:"#006aed"
+      walletIcon:"#006aed",
+      logoText:"#4c89d9",
   },
  
 });
